@@ -18,4 +18,6 @@ public class RobotMap {
 	// public static int rangefinderModule = 1;
 	public static int LEFT_MASTER = 1;
 	public static int LEFT_SLAVE = 2;
+	public static int RIGHT_MASTER = 3;
+	
 }
