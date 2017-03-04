@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4576.robot.subsystems;
 
+import org.usfirst.frc.team4576.robot.RobotMap;
+
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
@@ -20,7 +22,7 @@ public class Shooter extends Subsystem {
 	// public double preset4 = (double) (3000);
 	//double sliderVal = (double) 0.0;
 	//double targetSpeed = SmartDashboard.getNumber("DB/Slider 0", sliderVal) * 1000.0;
-	double targetSpeed = (double) 4000.0;
+	//double targetSpeed = (double) 4000.0;
 
 	public Shooter() {
 
@@ -61,7 +63,7 @@ public class Shooter extends Subsystem {
 	 */
 
 	public void shoot() {
-		tsrxS.set(targetSpeed);
+		tsrxS.set(RobotMap.SHOOTER_SPEED);
 		
 		// RPMchooser.getSelected();
 	}

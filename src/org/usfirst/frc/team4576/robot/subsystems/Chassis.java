@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4576.robot.subsystems;
 
 import org.usfirst.frc.team4576.robot.Robot;
+import org.usfirst.frc.team4576.robot.RobotMap;
 
 import com.ctre.CANTalon;
 
@@ -29,10 +30,10 @@ public class Chassis extends Subsystem {
 
 	boolean manualOverride = false;
 
-	public CANTalon tsrxL = new CANTalon(0);
-	public CANTalon tsrxR = new CANTalon(1);
-	public CANTalon tsrxL2 = new CANTalon(2);
-	public CANTalon tsrxR2 = new CANTalon(3);
+	public CANTalon tsrxL = new CANTalon(RobotMap.LEFT_MASTER);
+	public CANTalon tsrxR = new CANTalon(RobotMap.RIGHT_MASTER);
+	public CANTalon tsrxL2 = new CANTalon(RobotMap.LEFT_SLAVE);
+	public CANTalon tsrxR2 = new CANTalon(RobotMap.RIGHT_SLAVE);
 	// ******Commented out encoder to troubleshoot******
 	// double quadEncoderPos = tsrxR.getEncPosition();
 

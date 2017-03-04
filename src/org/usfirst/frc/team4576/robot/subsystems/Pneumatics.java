@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4576.robot.subsystems;
 
+import org.usfirst.frc.team4576.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -7,10 +9,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Pneumatics extends Subsystem {
 
 	public Pneumatics() {
-		s0 = new Solenoid(0);/* Shifting */
-		s1 = new Solenoid(1);/* Gear */
-		s2 = new Solenoid(2);/* Ball Adcancing */
-		s3 = new Solenoid(3);/* Ball Advancing */
+		s0 = new Solenoid(RobotMap.SHIFT_SOLENOID);/* Shifting */
+		s1 = new Solenoid(RobotMap.GEAR_SOLENOID);/* Gear */
+		s2 = new Solenoid(RobotMap.BALL_SOLENOID1);/* Ball Adcancing */
+		s3 = new Solenoid(RobotMap.BALL_SOLENOID2);/* Ball Advancing */
 
 	}
 

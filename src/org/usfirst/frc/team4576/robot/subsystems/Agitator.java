@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4576.robot.subsystems;
 
+import org.usfirst.frc.team4576.robot.RobotMap;
+
 import com.ctre.CANTalon;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -9,7 +11,7 @@ public class Agitator extends Subsystem {
 	public Agitator() {
 	}
 
-	CANTalon tsrxA = new CANTalon(6);
+	CANTalon tsrxA = new CANTalon(RobotMap.AGITATOR_TALON);
 
 	@Override
 	protected void initDefaultCommand() {
