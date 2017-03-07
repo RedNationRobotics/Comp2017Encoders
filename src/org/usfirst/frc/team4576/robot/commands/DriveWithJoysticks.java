@@ -5,10 +5,17 @@ import org.usfirst.frc.team4576.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveWithJoysticks extends Command {
+	
+	private Robot robot;
+	public DriveWithJoysticks(Robot robot)
+	{
+		this.robot = robot;
+	}
+	
 	public DriveWithJoysticks(){
 		
-		requires(Robot.chassis);
-        Robot.chassis.initTeleop();
+		requires(robot.getChassis());
+        robot.getChassis().initTeleop();
         
 	}
 
@@ -21,7 +28,7 @@ public class DriveWithJoysticks extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.chassis.normalDrive();
+		robot.getChassis().normalDrive();
 		
 	}
 

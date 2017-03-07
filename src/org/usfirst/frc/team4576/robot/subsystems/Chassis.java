@@ -4,11 +4,15 @@ import org.usfirst.frc.team4576.robot.Robot;
 import org.usfirst.frc.team4576.robot.RobotMap;
 
 import com.ctre.CANTalon;
+import com.ctre.CANTalon.FeedbackDevice;
+import com.ctre.CANTalon.TalonControlMode;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 //import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -16,12 +20,29 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Chassis extends Subsystem {
 	
 	double rpm = 0;
-
+	private AnalogGyro gyro = new AnalogGyro(1);
 	public Chassis() {
 		tsrxL2.changeControlMode(CANTalon.TalonControlMode.Follower);
 		tsrxL2.set(tsrxL.getDeviceID());
+		tsrxL.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 		tsrxR2.changeControlMode(CANTalon.TalonControlMode.Follower);
 		tsrxR2.set(tsrxR.getDeviceID());
+		tsrxR.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+		tsrxR.configEncoderCodesPerRev(768);
+		tsrxL.configEncoderCodesPerRev(768);
+		/*
+		tsrxR.configPeakOutputVoltage(6, -6);
+		tsrxL.configPeakOutputVoltage(6, -6);
+		tsrxR.configNominalOutputVoltage(0,0);
+		tsrxL.configNominalOutputVoltage(0, 0);
+		*/
+		
+		tsrxL.setAllowableClosedLoopErr(0);
+		tsrxL.reverseOutput(true);
+		tsrxL.reverseSensor(true);
+		tsrxR.setAllowableClosedLoopErr(0);
+		
+		
 		//******Commented out encoder to troubleshoot******
 		//System.out.println("quadEncoderPos" + quadEncoderPos);
 	}
@@ -59,7 +80,23 @@ public class Chassis extends Subsystem {
 		// tsrxR2.set(right);
 
 	}
-
+	
+	public void resetGyro()
+	{
+		gyro.reset();
+	}
+	public double getAngle()
+	{
+		return gyro.getAngle();
+	}
+	public void setFPID(double f, double p, double i, double d)
+	{
+		tsrxL.setF(f);
+		tsrxR.setF(f);
+		tsrxL.setPID(p, i, d);
+		tsrxR.setPID(p, i, d);
+		
+	}
 	public void disable() {
 		tsrxR.disable();
 		// tsrxR2.disable();
@@ -70,10 +107,40 @@ public class Chassis extends Subsystem {
 
 	public void initAuto() {
 		drive.setSafetyEnabled(false);
+		tsrxL.setEncPosition(0);
+		tsrxR.setEncPosition(0);
+		tsrxL.setPosition(0);
+		tsrxR.setPosition(0);
+		/*
+		tsrxL.changeControlMode(TalonControlMode.Position);
+		tsrxR.changeControlMode(TalonControlMode.Position);
+		;
+		tsrxL.enableControl();
+		tsrxR.enableControl();
+		*/
+		//tsrxL.setVoltageRampRate(10000);
+		//tsrxR.setVoltageRampRate(10000);
+		drive.setExpiration(20000);
 	}
 
+	public String getPositions()
+	{
+		return tsrxL.getEncPosition() + " " + tsrxR.getEncPosition();
+	}
+	
+	public double getRightPosition()
+	{
+		return tsrxR.getEncPosition();
+	}
+	public double getLeftPosition()
+	{
+		return tsrxL.getEncPosition();
+	}
 	public void initTeleop() {
-		drive.setSafetyEnabled(false);
+		drive.setSafetyEnabled(true);
+		tsrxL.changeControlMode(TalonControlMode.PercentVbus);
+		tsrxR.changeControlMode(TalonControlMode.PercentVbus);
+		drive.setExpiration(drive.DEFAULT_SAFETY_EXPIRATION);
 	}
 
 	// This declares that for driving only the assigned axes are used.
@@ -83,6 +150,15 @@ public class Chassis extends Subsystem {
 		SmartDashboard.putNumber("RPM", rpm);
 		drive.arcadeDrive(Robot.driveStick.getRawAxis(FORWARD_AXIS), Robot.driveStick.getRawAxis(TURN_AXIS));
 	}
+	
+	
+	public void setPosition(double position)
+	{
+		tsrxL.set(position);
+		tsrxR.set(position);
+	}
+	
+	
 
 /*	public void encoders() {
 		tsrxL.changeControlMode(TalonControlMode.Position);

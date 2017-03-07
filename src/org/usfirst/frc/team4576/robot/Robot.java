@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,7 +28,11 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Robot extends IterativeRobot {
 
 	public static final Agitator agitator = new Agitator();
-	public static final Chassis chassis = new Chassis();
+	private final Chassis chassis = new Chassis();
+	public Chassis getChassis() {
+		return chassis;
+	}
+
 	public static final Climber climber = new Climber();
 	public static final Pneumatics pneumatics = new Pneumatics();
 	public static final Shooter shooter = new Shooter();
@@ -45,8 +50,8 @@ public class Robot extends IterativeRobot {
 		System.out.println("RNR 2017 Robot Code Initializing...");
 		oi = new OI();
 
-		teleopCommand = new DriveWithJoysticks();
-		autonomousCommand = new Autonomous();
+		teleopCommand = new DriveWithJoysticks(this);
+		autonomousCommand = new Autonomous(this);
 
 		
 		camera.setFPS(15);
@@ -77,16 +82,21 @@ public class Robot extends IterativeRobot {
 	 */
 	public void autonomousInit() {
 		if (autonomousCommand != null)
+
+			chassis.setFPID(1, 1, 0, 0);
+			chassis.initAuto();
 			autonomousCommand.start();
 	}
 
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putString("Postions: ", chassis.getPositions());
 	}
 
 	public void teleopInit() {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		chassis.initTeleop();
 		teleopCommand.start();
 		// Robot.chassis.teleopMode();
 
