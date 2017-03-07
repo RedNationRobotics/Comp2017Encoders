@@ -2,19 +2,17 @@ package org.usfirst.frc.team4576.robot.commands;
 
 import org.usfirst.frc.team4576.robot.Robot;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Autonomous extends Command {
+public class AutoMiddleGear extends Command {
 	
-	public Autonomous()
-	{
+	public AutoMiddleGear(){
 	}
-	private boolean finished = false;
-	private boolean next = false;
 	@Override
 	protected void initialize() {
 	//	Robot.chassis.encoders();
-		//Robot.chassis.setPosition(800000);
+		//Robot.chassis..setPosition(800000);
 		//Timer.delay(5);
 		Robot.chassis.resetGyro();
 	}
@@ -24,33 +22,15 @@ public class Autonomous extends Command {
 		//-,+ for forward, +,- for backwards
 	//	Robot.chassis.setLeftRight(15, 15);
 	
-	
-	
-	if(Robot.chassis.getLeftPosition() > 10 * 768){
-		Robot.chassis.setLeftRight(0.15, 0.15);
-	}else{
-		Robot.chassis.setLeftRight(.25, .25);
-	}
-	if(Robot.chassis.getLeftPosition() > 15 * 768)
-	{
-		next = true;
-	}
-		
-		if(next)
-		{
-			if(Robot.chassis.getAngle() > 100)
-			{
-				finished = true;
-			}
-			Robot.chassis.setLeftRight(0.3, -0.3);
-		}
-		
+	Robot.chassis.setLeftRight(-1, -1);
+	Timer.delay(5);
+	Robot.pneumatics.setGear(true);
 		
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return finished;
+		return true;
 	}
 
 	@Override

@@ -1,6 +1,8 @@
 
 package org.usfirst.frc.team4576.robot;
 
+import org.usfirst.frc.team4576.robot.commands.AutoBaseline;
+import org.usfirst.frc.team4576.robot.commands.AutoMiddleGear;
 import org.usfirst.frc.team4576.robot.commands.Autonomous;
 import org.usfirst.frc.team4576.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team4576.robot.subsystems.Agitator;
@@ -16,6 +18,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -28,36 +31,44 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	public static final Agitator agitator = new Agitator();
-	private final Chassis chassis = new Chassis();
-	public Chassis getChassis() {
-		return chassis;
-	}
-
+	public static final Chassis chassis = new Chassis();
 	public static final Climber climber = new Climber();
 	public static final Pneumatics pneumatics = new Pneumatics();
 	public static final Shooter shooter = new Shooter();
 	public static OI oi;
 
 	public static Joystick driveStick = new Joystick(0);
-	UsbCamera camera = new UsbCamera("cam0",0);
-
-	
+	UsbCamera camera = new UsbCamera("cam0", 0);
 
 	Command teleopCommand;
 	Command autonomousCommand;
+	final String defaultAuto = "Default";
+	final String baselineAuto = "Baseline Auto";
+	final String timedMiddleGear = "Timed Middle Gear";
+	String autoSelected;
+	SendableChooser<String> chooser = new SendableChooser<>();
+	// SendableChooser chooser;
 
 	public void robotInit() {
+		chooser = new SendableChooser<>();
+		chooser.addDefault("Default Auto", defaultAuto);
+		chooser.addObject("Baseline Auto", baselineAuto);
+		SmartDashboard.putData("Auto Choices", chooser);
 		System.out.println("RNR 2017 Robot Code Initializing...");
 		oi = new OI();
+		// chooser = new SendableChooser();
+		// chooser.addDefault("Auto Drive 1", new AutoDrive1());
+		// chooser.addObject("Auto Drive 2", new AutoDrive2());
+		// SmartDashboard.putData("Auto Choices:", chooser);
 
-		teleopCommand = new DriveWithJoysticks(this);
-		autonomousCommand = new Autonomous(this);
+		teleopCommand = new DriveWithJoysticks();
+		autonomousCommand = new Autonomous();
+		autonomousCommand = new AutoBaseline();
 
-		
 		camera.setFPS(15);
 		camera.setResolution(320, 240);
 		CameraServer.getInstance().startAutomaticCapture(camera);
-		
+
 	}
 
 	public void disabledInit() {
@@ -81,11 +92,25 @@ public class Robot extends IterativeRobot {
 	 * to the switch structure below with additional strings & commands.
 	 */
 	public void autonomousInit() {
+
+		switch (chooser.getSelected()) {
+		case "baselineAuto":
+			autonomousCommand = new AutoBaseline();
+			break;
+		case "timedMiddleGear":
+			autonomousCommand = new AutoMiddleGear();
+			break;
+		default:
+			autonomousCommand = new Autonomous();
+			break;
+		}
+
 		if (autonomousCommand != null)
 
-			chassis.setFPID(1, 1, 0, 0);
-			chassis.initAuto();
-			autonomousCommand.start();
+		chassis.setFPID(0, .2, 0, 0);
+		chassis.initAuto();
+		autonomousCommand.start();
+
 	}
 
 	public void autonomousPeriodic() {

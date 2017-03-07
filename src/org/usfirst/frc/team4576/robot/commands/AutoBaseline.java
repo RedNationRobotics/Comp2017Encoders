@@ -4,9 +4,9 @@ import org.usfirst.frc.team4576.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Autonomous extends Command {
-	
-	public Autonomous()
+public class AutoBaseline extends Command {
+	//LITERALLY COPIED AND PASTED FROM AUTONOMOUS CLASS
+	public AutoBaseline()
 	{
 	}
 	private boolean finished = false;
@@ -14,8 +14,9 @@ public class Autonomous extends Command {
 	@Override
 	protected void initialize() {
 	//	Robot.chassis.encoders();
-		//Robot.chassis.setPosition(800000);
+		//robot.getChassis().setPosition(800000);
 		//Timer.delay(5);
+		finished = false;
 		Robot.chassis.resetGyro();
 	}
 
