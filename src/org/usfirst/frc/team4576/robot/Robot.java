@@ -53,6 +53,7 @@ public class Robot extends IterativeRobot {
 		chooser = new SendableChooser<>();
 		chooser.addDefault("Default Auto", defaultAuto);
 		chooser.addObject("Baseline Auto", baselineAuto);
+		chooser.addObject("Middle Gear Auto", timedMiddleGear);
 		SmartDashboard.putData("Auto Choices", chooser);
 		System.out.println("RNR 2017 Robot Code Initializing...");
 		oi = new OI();

@@ -27,12 +27,12 @@ public class AutoBaseline extends Command {
 	
 	
 	
-	if(Robot.chassis.getLeftPosition() > 10 * 768){
+	if(Robot.chassis.getLeftPosition() > -10 * 768){
 		Robot.chassis.setLeftRight(0.15, 0.15);
 	}else{
 		Robot.chassis.setLeftRight(.25, .25);
 	}
-	if(Robot.chassis.getLeftPosition() > 15 * 768)
+	if(Robot.chassis.getLeftPosition() > -15 * 768)
 	{
 		next = true;
 	}
