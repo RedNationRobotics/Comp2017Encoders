@@ -9,15 +9,15 @@ public class AutoMiddleGear extends Command {
 
 	@Override
 	protected void initialize() {
-
+		Robot.chassis.initAuto();
 	}
 
 	@Override
 	protected void execute() {
 		//-,+ for forward, +,- for backwards
 		Robot.chassis.setLeftRight(-0.5, 0.5);
-		Timer.delay(1.5);
-		Robot.pneumatics.gear();
+		Timer.delay(4);
+		Robot.pneumatics.gearUp();
 		Robot.chassis.setLeftRight(0, 0);
 
 	}

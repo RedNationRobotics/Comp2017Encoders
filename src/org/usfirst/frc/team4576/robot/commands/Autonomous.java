@@ -27,9 +27,9 @@ public class Autonomous extends Command {
 	
 	
 	if(Robot.chassis.getLeftPosition() > 10 * 768){
-		Robot.chassis.setLeftRight(0.15, 0.15);
+		Robot.chassis.setLeftRight(-0.15, 0.15);
 	}else{
-		Robot.chassis.setLeftRight(.25, .25);
+		Robot.chassis.setLeftRight(-.25, .25);
 	}
 	if(Robot.chassis.getLeftPosition() > 15 * 768)
 	{
@@ -37,12 +37,10 @@ public class Autonomous extends Command {
 	}
 		
 		if(next)
-		{
-			if(Robot.chassis.getAngle() > 100)
-			{
+		{			{
 				finished = true;
 			}
-			Robot.chassis.setLeftRight(0.3, -0.3);
+			Robot.chassis.setLeftRight(0, -0);
 		}
 		
 		

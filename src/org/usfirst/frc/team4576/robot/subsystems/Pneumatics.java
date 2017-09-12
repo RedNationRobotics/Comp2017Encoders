@@ -17,7 +17,8 @@ public class Pneumatics extends Subsystem {
 	}
 
 	private Compressor c;
-	private Solenoid s0,s1,s2,s3;
+	private Solenoid s0, s1, s2, s3;
+
 	@Override
 	protected void initDefaultCommand() {
 		c = new Compressor();
@@ -27,42 +28,53 @@ public class Pneumatics extends Subsystem {
 
 		c.setClosedLoopControl(true);
 	}
-//Shifting
+
+	// Shifting
 	public void setShift(boolean closed) {
 		s0.set(closed);
 	}
 
 	public void shiftUp() {
 		s0.set(true);
-
 	}
 
 	public void shiftDown() {
 		s0.set(false);
 	}
-//Ball Advancing
+
+	// Ball Advancing
 	public void Fire(boolean closed) {
 		s2.set(closed);
 		s3.set(!closed);
 	}
+
 	public void toggleFire() {
-		
+
 		boolean b = !s2.get();
 		s2.set(b);
 		s3.set(!b);
 
 	}
-//Gear Grabbing
+
+	// Gear Grabbing
 	public void setGear(boolean closed) {
 		s1.set(closed);
 	}
-	
+
+	public void gearUp() {
+		s1.set(true);
+	}
+
+	public void gearDown() {
+		s1.set(false);
+	}
+
 	public void gear() {
 		s1.set(!s1.get());
-		
+
 	}
-	
-//Compressor Toggle
+
+	// Compressor Toggle
 	public void toggleComp() {
 		if (c.enabled())
 			c.stop();

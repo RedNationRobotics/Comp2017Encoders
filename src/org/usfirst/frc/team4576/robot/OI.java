@@ -8,14 +8,11 @@ import org.usfirst.frc.team4576.robot.commands.Gear;
 import org.usfirst.frc.team4576.robot.commands.Shift;
 import org.usfirst.frc.team4576.robot.commands.Shoot;
 import org.usfirst.frc.team4576.robot.commands.ToggleCompressor;
+//import org.usfirst.frc.team4576.robot.commands.ToggleFlashlight;
 
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
-/**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
- */
 // Button Values:
 //
 // 1: A
@@ -43,31 +40,34 @@ public class OI {
 	Button dsB = new JoystickButton(Robot.driveStick, 2);
 	Button dsX = new JoystickButton(Robot.driveStick, 3);
 	Button dsY = new JoystickButton(Robot.driveStick, 4);
-	Button dsLB = new JoystickButton(Robot.driveStick, 5);
-	Button dsRB = new JoystickButton(Robot.driveStick, 6);
 	Button dsBACK = new JoystickButton(Robot.driveStick, 7);
 	Button dsSTART = new JoystickButton(Robot.driveStick, 8);
-	Button dsRPRESS = new JoystickButton(Robot.driveStick,10);
+	
+	Button ssA = new JoystickButton(Robot.secondaryStick, 1);
+	Button ssRPRESS = new JoystickButton(Robot.secondaryStick, 10);
+	Button ssY = new JoystickButton(Robot.secondaryStick, 4);
+	Button ssLB = new JoystickButton(Robot.secondaryStick, 5);
+	Button ssRB = new JoystickButton(Robot.secondaryStick, 6);
+	Button ssBACK = new JoystickButton(Robot.secondaryStick, 7);
 
-	
-	
 	public OI() {
-		
-		dsRB.whileHeld(new Shoot(true));
-		dsRB.whenReleased(new Shoot(false));
 		dsX.whenPressed(new Shift(true));
 		dsA.whenPressed(new Shift(false));
-		dsB.whenPressed(new ToggleCompressor());
-		dsY.whenPressed(new Gear());
-		dsSTART.whileHeld(new Climb(true));
-		dsSTART.whenReleased(new Climb(false));
-		dsBACK.whileHeld(new ClimbReverse(true));
-		dsBACK.whenReleased(new ClimbReverse(false));
-		dsLB.whenPressed(new Fire());
-		dsRPRESS.whileHeld(new Agitate(true));
-		dsRPRESS.whenReleased(new Agitate(false));
-		
+		dsSTART.whenPressed(new ToggleCompressor());
 
+		dsY.whenPressed(new Gear());
+		//dsB.whenPressed(new ToggleFlashlight());
+		
+		
+		ssA.whileHeld(new Agitate(true));
+		ssA.whenReleased(new Agitate(false));
+		ssLB.whenPressed(new Fire());
+		ssRB.whileHeld(new Shoot(true));
+		ssRB.whenReleased(new Shoot(false));
+		ssY.whileHeld(new Climb(true));
+		ssY.whenReleased(new Climb(false));
+		ssBACK.whileHeld(new ClimbReverse(true));
+		ssBACK.whenReleased(new ClimbReverse(false));
 
 	}
 }

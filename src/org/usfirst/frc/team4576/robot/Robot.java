@@ -38,6 +38,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 	public static Joystick driveStick = new Joystick(0);
+	public static Joystick secondaryStick = new Joystick(1);
 	UsbCamera camera = new UsbCamera("cam0", 0);
 
 	Command teleopCommand;
