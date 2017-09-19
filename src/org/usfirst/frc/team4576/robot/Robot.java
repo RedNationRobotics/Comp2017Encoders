@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team4576.robot;
 
 import org.usfirst.frc.team4576.robot.commands.AutoBaseline;
@@ -82,9 +81,9 @@ public class Robot extends IterativeRobot {
 	}
 
 	/**
-	 * This autonomous (along with the RPMchooser code above) shows how to
+	 * This autonomous (along with the chooser code above) shows how to
 	 * select between different autonomous modes using the dashboard. The
-	 * sendable RPMchooser code works with the Java SmartDashboard. If you
+	 * sendable chooser code works with the Java SmartDashboard. If you
 	 * prefer the LabVIEW Dashboard, remove all of the RPMchooser code and
 	 * uncomment the getString code to get the auto name from the text box below
 	 * the Gyro
@@ -96,6 +95,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 
 		switch (chooser.getSelected()) {
+	
 		case "baselineAuto":
 			autonomousCommand = new AutoBaseline();
 			break;
@@ -105,11 +105,12 @@ public class Robot extends IterativeRobot {
 		default:
 			autonomousCommand = new Autonomous();
 			break;
+			
 		}
 
 		if (autonomousCommand != null)
 
-		chassis.setFPID(0, .2, 0, 0);
+	//	chassis.setFPID(0, .2, 0, 0);
 		chassis.initAuto();
 		autonomousCommand.start();
 
@@ -117,7 +118,7 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putString("Postions: ", chassis.getPositions());
+	//	SmartDashboard.putString("Postions: ", chassis.getPositions());
 	}
 
 	public void teleopInit() {
@@ -126,12 +127,15 @@ public class Robot extends IterativeRobot {
 		chassis.initTeleop();
 		teleopCommand.start();
 		// Robot.chassis.teleopMode();
-
 	}
 
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-	}
+		SmartDashboard.putNumber("Left Encoder: ", chassis.tsrxL.getEncPosition());
+		SmartDashboard.putNumber("Right Encoder: ", chassis.tsrxR.getEncPosition());	
+		}
+
+	
 
 	public void testPeriodic() {
 		LiveWindow.run();

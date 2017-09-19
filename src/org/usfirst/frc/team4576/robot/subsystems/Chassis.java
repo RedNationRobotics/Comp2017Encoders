@@ -27,7 +27,7 @@ public class Chassis extends Subsystem {
 		tsrxR2.changeControlMode(CANTalon.TalonControlMode.Follower);
 		tsrxR2.set(tsrxR.getDeviceID());
 		tsrxR.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		tsrxR.configEncoderCodesPerRev(768);
+	tsrxR.configEncoderCodesPerRev(768);
 		tsrxL.configEncoderCodesPerRev(768);
 		/*
 		tsrxR.configPeakOutputVoltage(6, -6);
@@ -110,10 +110,10 @@ public class Chassis extends Subsystem {
 		tsrxR.setEncPosition(0);
 		tsrxL.setPosition(0);
 		tsrxR.setPosition(0);
-		/*
+		
 		tsrxL.changeControlMode(TalonControlMode.Position);
 		tsrxR.changeControlMode(TalonControlMode.Position);
-		;
+		/*
 		tsrxL.enableControl();
 		tsrxR.enableControl();
 		*/
@@ -140,6 +140,10 @@ public class Chassis extends Subsystem {
 		tsrxL.changeControlMode(TalonControlMode.PercentVbus);
 		tsrxR.changeControlMode(TalonControlMode.PercentVbus);
 		drive.setExpiration(drive.DEFAULT_SAFETY_EXPIRATION);
+		tsrxL.setEncPosition(0);
+		tsrxR.setEncPosition(0);
+		tsrxL.setPosition(0);
+		tsrxR.setPosition(0);
 	}
 
 	// This declares that for driving only the assigned axes are used.
@@ -151,10 +155,10 @@ public class Chassis extends Subsystem {
 	}
 	
 	
-	public void setPosition(double position)
+	public void setPositionLeftRight(double left, double right)
 	{
-		tsrxL.set(position);
-		tsrxR.set(position);
+		tsrxL.setPosition(left);
+		tsrxR.setPosition(right);
 	}
 	
 	
