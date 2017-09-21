@@ -47,7 +47,6 @@ public class Robot extends IterativeRobot {
 	final String timedMiddleGear = "Timed Middle Gear";
 	String autoSelected;
 	SendableChooser<String> chooser = new SendableChooser<>();
-	// SendableChooser chooser;
 
 	public void robotInit() {
 		chooser = new SendableChooser<>();
