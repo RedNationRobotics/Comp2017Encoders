@@ -160,8 +160,6 @@ public class Chassis extends Subsystem {
 		tsrxL.setPosition(left);
 		tsrxR.setPosition(right);
 	}
-	
-	
 
 /*	public void encoders() {
 		tsrxL.changeControlMode(TalonControlMode.Position);
