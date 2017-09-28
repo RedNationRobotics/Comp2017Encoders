@@ -36,6 +36,10 @@ public class RobotMap {
 	//Random Values
 	public static final int SHOOTER_SPEED = 4000;
 	
+	//Encoders
+	public static final int K_LEFT = 14.7;
+	public static final int K_RIGTH = -14.04;
+	
 
 	
 }
