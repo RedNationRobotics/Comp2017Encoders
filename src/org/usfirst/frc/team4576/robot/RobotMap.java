@@ -38,7 +38,7 @@ public class RobotMap {
 	
 	//Encoders
 	public static final int K_LEFT = 14.7;
-	public static final int K_RIGTH = -14.04;
+	public static final int K_RIGHT = -14.04;
 	
 
 	
