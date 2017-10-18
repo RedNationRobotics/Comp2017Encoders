@@ -8,19 +8,30 @@ public class ArcCalc {
 	public Pose _pose1;
 	public Pose _pose2;
 	
+	public double _radius;
 	public double _turn_rad;
-	
 	public double _width;
+	public double _dleft;
+	public double _dright;
+	
+	
 	
 	public void calc(Pose pose1, double _left_mm, double _right_mm) {
 		_pose1 = pose1;
-		_left_mm = l;
-		_right_mm = r;
-				
+		
+		find dright();
+		find dleft();		
 		find turn();
 	}
 	
-	protected find turn() {
-		_turn_rad = (_right_mm - _left_mm)/_width;
+	protected find dleft() {
+		_dleft = 2 * 3.1415926536 * _radius;
 	}
-}
+	
+	protected find dright() {
+		_dright = 2 * 3.1415926536 * (_radius + _width);
+	}
+	
+	protected void find turn() {
+		_turn_rad = (_dright - _dleft) / _width;
+	}
