@@ -13,6 +13,5 @@ public class Test {
 		
 		a.calc(pose1, 123, 134);
 		
-		system.out.println(a, _turn_rad);
 	}
 }
