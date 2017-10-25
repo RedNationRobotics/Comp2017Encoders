@@ -40,6 +40,7 @@ public class RobotMap {
 	//Encoders
 	public static final double K_LEFT = 14.7;
 	public static final double K_RIGHT = -14.04;
+	public static final double Pie = 3.1415926536;
 	
 
 	
