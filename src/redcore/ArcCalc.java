@@ -25,6 +25,7 @@ public class ArcCalc {
 	public double _R_left;
 	public double _R_right;
 	public double _circ = 2 * Pie * _radius;
+	public double _Rpose;
 	
 	
 	public void calc(Pose pose1, double _left_mm, double _right_mm) {
@@ -57,21 +58,21 @@ public class ArcCalc {
 	
 	
 	protected void FindPose() {
-		int Rpose;
-		_x = _i + (Math.cos(_turn_rad) * Rpose);
-		_y = _j + (Math.sin(_turn_rad) * Rpose);
+		_x = _i + (Math.cos(_turn_rad) * _Rpose);
+		_y = _j + (Math.sin(_turn_rad) * _Rpose);
 	}
 	
 	
 	protected void FindCenter() {
-		_dleft = _turn_rad * _circ = _turn_rad * 2 * Math.PI *_R_left;
 		//Wait for tanner to finish coding _turn_rad
 		_R_left = _dleft / (_turn_rad * 2 * Math.PI);
-		_i = _sx + (Math.cos(_dir_to_center)* Rpose);
-		_j = _sy + (Math.sin(_dir_to_center)* Rpose);
+		_i = _sx + (Math.cos(_dir_to_center)* _Rpose);
+		_j = _sy + (Math.sin(_dir_to_center)* _Rpose);
 	}
+	
+	
 	protected void FindRpose() {
-		Rpose = Rleft + (_width / 2)
+		_Rpose = _R_left + (_width / 2);
 	}
 		
 }
