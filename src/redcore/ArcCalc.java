@@ -2,14 +2,14 @@ package redcore;
 
 
 public class ArcCalc {
-	public double Pie = 3.1415926536;
 	
 	public double _left_mm;
 	public double _right_mm;
 	
-	public Pose _pose1;
-	public Pose _pose2;
 	
+	public Pose _pose2 = new Pose();
+	
+	public double _turn;
 	public double _radius;
 	public double _turn_rad;
 	public double _width;
@@ -24,11 +24,11 @@ public class ArcCalc {
 	public double _j;
 	public double _R_left;
 	public double _R_right;
-	public double _circ = 2 * Pie * _radius;
+	public double _circ;
+	public double _Rpose;
 	
 	
 	public void calc(Pose pose1, double _left_mm, double _right_mm) {
-		_pose1 = pose1;
 		
 		FindTurn();
 		FindDleft();
@@ -40,38 +40,63 @@ public class ArcCalc {
 	
 	
 	protected void FindDleft() {
-		_dleft = 2 * 3.1415926536 * _radius;
+		
+		_dleft = (int) (2 * Math.PI * _radius);
 	}
 	
 	
 	
 	protected void FindDright() {
-		_dright = 2 * 3.1415926536 * (_radius + _width);
+		
+		_dright = 2 * Math.PI * (_radius + _width);
 	}
 	
 	
 	
-	protected void FindTurn() {
+	protected void FindTurnRadians() {
+		
 		_turn_rad = (_dright - _dleft) / _width;
 	}
-	
+	protected void FindCenter() {
+		
+		_i = _sx + (Math.cos(_dir_to_center)* _Rpose);
+		
+		_j = _sy + (Math.sin(_dir_to_center)* _Rpose);
+		
+		
+		
+	}
 	
 	protected void FindPose() {
-		int Rpose;
-		_x = _i + (Math.cos(_turn_rad) * Rpose);
-		_y = _j + (Math.sin(_turn_rad) * Rpose);
-	}
-	
-	
-	protected void FindCenter() {
-		_dleft = _turn_rad * _circ = _turn_rad * 2 * Math.PI *_R_left;
-		//Wait for tanner to finish coding _turn_rad
-		_R_left = _dleft / (_turn_rad * 2 * Math.PI);
-		_i = _sx + (Math.cos(_dir_to_center)* Rpose);
-		_j = _sy + (Math.sin(_dir_to_center)* Rpose);
-	}
-	protected void FindRpose() {
-		Rpose = Rleft + (_width / 2)
-	}
 		
+		_circ = 2 * Math.PI  * _radius;
+		
+		_dleft = _turn * 2 * Math.PI * _R_left;
+		
+		_R_left = _dleft / (_turn * 2 * Math.PI);
+		
+		_x = _i + (Math.cos(_turn_rad) * _Rpose);
+		
+		_y = _j + (Math.sin(_turn_rad) * _Rpose);
+		
+ArcCalc a = new ArcCalc();
+		
+		Pose pose1 = new Pose();
+		
+		pose1.x = 2.3;
+		pose1.y = 5.2;
+		pose1.vector = 1.5707963268;
+		
+		a.calc(pose1, 123, 134);
+		
+		_pose2.x = 0.0;
+		_pose2.y = 0.0;
+		_pose2.vector = 1.5707963268 + _turn_rad;
+		
+	}
+	protected void FindTurn() {
+		
+	_turn = (_dright - _dleft) / (2 * Math.PI * _width);
+	
+	}
 }
