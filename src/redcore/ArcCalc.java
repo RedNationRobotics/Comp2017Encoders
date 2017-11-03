@@ -3,18 +3,10 @@ package redcore;
 
 public class ArcCalc {
 	
-	public double _left_mm;
-	public double _right_mm;
-	
-	
-	public Pose _pose2 = new Pose();
-	
 	public double _turn;
 	public double _radius;
 	public double _turn_rad;
 	public double _width;
-	public double _dleft;
-	public double _dright;
 	public double _dir_to_center;
 	public double _sx;
 	public double _sy;
@@ -26,77 +18,70 @@ public class ArcCalc {
 	public double _R_right;
 	public double _circ;
 	public double _Rpose;
+	public double _d_left_mm;
+	public double _d_right_mm;
+	public Pose _pose1;
+	public Pose _pose2 = new Pose();
 	
+	protected double _radiusLeft_mm;
+	public double _poseRadius_mm;
+	public double _turn_radians;
+	protected double _dirToCenter_radians;
 	
-	public void calc(Pose pose1, double _left_mm, double _right_mm) {
+	public void calc(Pose pose1, double distanceLeft_mm, double distanceRight_mm) {
+		
+		_pose1 = pose1;
+		_d_left_mm = distanceLeft_mm;
+		_d_right_mm = distanceLeft_mm;
 		
 		FindTurn();
-		FindDleft();
-		FindDright();
+		FindRadiusLeft();
+		FindPoseRadius();
 		FindCenter();
 		
 	}
+
 	
 	
-	
-	protected void FindDleft() {
-		
-		_dleft = (int) (2 * Math.PI * _radius);
+	protected void FindTurn() {
+		_turn_rad = (_d_right_mm - _d_left_mm) / EncConstants.Width;
+		_pose2.vector = _pose1.vector + _turn_rad;
 	}
 	
 	
 	
-	protected void FindDright() {
+	protected void FindRadiusLeft() {
+		_R_left = (EncConstants.Width * _d_left_mm) / (_d_right_mm - _d_left_mm);
 		
-		_dright = 2 * Math.PI * (_radius + _width);
 	}
 	
 	
 	
-	protected void FindTurnRadians() {
-		
-		_turn_rad = (_dright - _dleft) / _width;
+	protected void FindPoseRadius() {
+		_poseRadius_mm = _radiusLeft_mm + (EncConstants.Width * 0.5);
 	}
 	protected void FindCenter() {
+		_dirToCenter_radians = _pose1.vector * 1.570796325794;
 		
-		_i = _sx + (Math.cos(_dir_to_center)* _Rpose);
-		
-		_j = _sy + (Math.sin(_dir_to_center)* _Rpose);
-		
-		
-		
+		_pose2.x = _pose1.x + (Math.cos(_dirToCenter_radians) * _poseRadius_mm);
+		_pose2.y = _pose1.y + (Math.sin(_dirToCenter_radians) * _poseRadius_mm);
 	}
 	
 	protected void FindPose() {
 		
 		_circ = 2 * Math.PI  * _radius;
 		
-		_dleft = _turn * 2 * Math.PI * _R_left;
+		_d_left_mm = _turn * 2 * Math.PI * _R_left;
 		
-		_R_left = _dleft / (_turn * 2 * Math.PI);
+		_R_left = _d_left_mm / (_turn * 2 * Math.PI);
 		
 		_x = _i + (Math.cos(_turn_rad) * _Rpose);
 		
 		_y = _j + (Math.sin(_turn_rad) * _Rpose);
-		
-ArcCalc a = new ArcCalc();
-		
-		Pose pose1 = new Pose();
-		
-		pose1.x = 2.3;
-		pose1.y = 5.2;
-		pose1.vector = 1.5707963268;
-		
-		a.calc(pose1, 123, 134);
-		
-		_pose2.x = 0.0;
-		_pose2.y = 0.0;
-		_pose2.vector = 1.5707963268 + _turn_rad;
-		
 	}
-	protected void FindTurn() {
+	protected void FindTurn2() {
 		
-	_turn = (_dright - _dleft) / (2 * Math.PI * _width);
+	_turn = (_d_right_mm - _d_left_mm) / (2 * Math.PI * _width);
 	
 	}
 }
