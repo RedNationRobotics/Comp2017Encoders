@@ -32,12 +32,13 @@ public class ArcCalc {
 		
 		_pose1 = pose1;
 		_d_left_mm = distanceLeft_mm;
-		_d_right_mm = distanceLeft_mm;
+		_d_right_mm = distanceRight_mm;
 		
 		FindTurn();
 		FindRadiusLeft();
 		FindPoseRadius();
 		FindCenter();
+		FindPose();
 		
 	}
 
@@ -46,6 +47,10 @@ public class ArcCalc {
 	protected void FindTurn() {
 		_turn_rad = (_d_right_mm - _d_left_mm) / EncConstants.Width;
 		_pose2.vector = _pose1.vector + _turn_rad;
+		//System.out.println(_d_left_mm);
+		//System.out.println(_d_right_mm);
+		//System.out.println(EncConstants.Width);
+		//System.out.println(_turn_rad);
 	}
 	
 	
@@ -53,33 +58,28 @@ public class ArcCalc {
 	protected void FindRadiusLeft() {
 		_R_left = (EncConstants.Width * _d_left_mm) / (_d_right_mm - _d_left_mm);
 		
+		//System.out.println(_R_left);
 	}
-	
 	
 	
 	protected void FindPoseRadius() {
-		_poseRadius_mm = _radiusLeft_mm + (EncConstants.Width * 0.5);
+		_poseRadius_mm = _R_left + (EncConstants.Width * 0.5);
+		//System.out.println(_poseRadius_mm);
 	}
 	protected void FindCenter() {
-		_dirToCenter_radians = _pose1.vector * 1.570796325794;
+		_dirToCenter_radians = _pose1.vector + 1.570796325794;
 		
-		_pose2.x = _pose1.x + (Math.cos(_dirToCenter_radians) * _poseRadius_mm);
-		_pose2.y = _pose1.y + (Math.sin(_dirToCenter_radians) * _poseRadius_mm);
+		//System.out.println(_dirToCenter_radians);
+		
+		_i = _pose1.x + (Math.cos(_dirToCenter_radians) * _poseRadius_mm);
+		_j = _pose1.y + (Math.sin(_dirToCenter_radians) * _poseRadius_mm);
 	}
 	
 	protected void FindPose() {
-		
-		_circ = 2 * Math.PI  * _radius;
-		
-		_d_left_mm = _turn * 2 * Math.PI * _R_left;
-		
-		_R_left = _d_left_mm / (_turn * 2 * Math.PI);
-		
-		_x = _i + (Math.cos(_turn_rad) * _Rpose);
-		
-		_y = _j + (Math.sin(_turn_rad) * _Rpose);
+		_pose2.x = _i + (Math.cos(_turn_rad) * _poseRadius_mm);
+		_pose2.y = _j + (Math.sin(_turn_rad) * _poseRadius_mm);
 	}
-	protected void FindTurn2() {
+	protected void FindTurnl() {
 		
 	_turn = (_d_right_mm - _d_left_mm) / (2 * Math.PI * _width);
 	
