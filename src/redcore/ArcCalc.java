@@ -64,6 +64,7 @@ public class ArcCalc {
 	
 	
 	protected void FindCenter() {
+		//Wait for tanner to finish coding _turn_rad
 		_R_left = _dleft / (_turn_rad * 2 * Math.PI);
 		_i = _sx + (Math.cos(_dir_to_center)* _Rpose);
 		_j = _sy + (Math.sin(_dir_to_center)* _Rpose);
