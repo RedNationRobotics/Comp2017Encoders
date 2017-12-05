@@ -14,7 +14,7 @@ public class Course implements Runnable{
 	protected double MaxRateOfChange_deg_per_Hz = _Max_deg_per_sec / _UpdateFrequency_Hz;
 	
 	public void CalcCourseThread() {
-		Thread t = new Thread();
+		_Thread  = new Thread();
 		Thread.start();
 	}
 	
@@ -34,7 +34,7 @@ public class Course implements Runnable{
 	}
 	
 	protected void ComputeCourse() {
-		_ControllerLeftRight = (_Controller.nextDouble() * 2.0) - 1.0;
+		_ControllerLeftRight = (Controller.nextDouble() * 2.0) - 1.0;
 		_Course += _ControllerLeftRight * MaxRateOfChange_deg_per_Hz;
 		if(_Course < 0) _Course += 360.0;
 		if(_Course >= 360.0) _Course -= 360.0;
