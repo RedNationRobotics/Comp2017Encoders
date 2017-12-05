@@ -5,16 +5,13 @@ public class Course implements Runnable{
 	protected Thread _Thread;
 	protected double _ControllerLeftRight = 0.0;
 	protected Control _Controller = new Control();
-	//The object control has yet to be created
 	protected boolean _Stop = false;
 	public double _Course = 0.0;
-	protected double _Max_deg_per_sec = 1.7;
-	//Number needs to be updated
+	protected double _Max_deg_per_sec = 382.3;
 	protected double _UpdateFrequency_Hz = 100.0;
 	protected double MaxRateOfChange_deg_per_Hz = _Max_deg_per_sec / _UpdateFrequency_Hz;
 	
 	public void CalcCourseThread() {
-		Thread t = new Thread();
 		Thread.start();
 	}
 	
@@ -24,8 +21,8 @@ public class Course implements Runnable{
 	}
 
 	public void run() {
-		System.out.println("Clac thread startd");
-		_Course = 0.0;
+		System.out.println("Clac thread started");
+		_Course = 359.999;
 		while(!_Stop) {
 			ComputeCourse();
 			WaitTiming();
@@ -40,13 +37,9 @@ public class Course implements Runnable{
 		if(_Course >= 360.0) _Course -= 360.0;
 	}
 	
-	protected void WaitTiming() {
-		try {
-			Thread.sleep((long) (1000 / _UpdateFrequency_Hz)); 
-		}
-		
-		catch (InterruptedExcpeption e) {
-			e.printStackTrace();
-		}
+	public void WaitTiming() {
+		Thread.sleep((long) (1000 / _UpdateFrequency_Hz));
 	}
+	
+	
 }
