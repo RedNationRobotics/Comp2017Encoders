@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import redcore.Course;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -132,8 +133,12 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Left Encoder: ", chassis.tsrxL.getEncPosition());
-		SmartDashboard.putNumber("Right Encoder: ", chassis.tsrxR.getEncPosition());	
+		SmartDashboard.putNumber("Right Encoder: ", chassis.tsrxR.getEncPosition());
 		}
+	
+	public void courseFinding() {
+		SmartDashboard.putNumber("Course Error: ",  )
+	}
 
 	
 

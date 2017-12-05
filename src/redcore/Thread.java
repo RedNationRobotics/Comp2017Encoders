@@ -10,9 +10,11 @@ public static void main(String[] args) throws InterruptedException {
 		System.out.println("Main thread: " + calc._Course);
 		Thread.sleep(1000);
 	}
+	calc.Stop();
 	
 	System.out.println("Main thread exiting.");
 	}
+	
 
 public boolean isAlive() {
 	// TODO Auto-generated method 
