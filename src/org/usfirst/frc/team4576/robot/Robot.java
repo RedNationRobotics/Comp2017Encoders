@@ -30,11 +30,13 @@ import redcore.Course;
  */
 public class Robot extends IterativeRobot {
 
+	public static Joystick driveStick1  = new Joystick(4);
 	public static final Agitator agitator = new Agitator();
 	public static final Chassis chassis = new Chassis();
 	public static final Climber climber = new Climber();
 	public static final Pneumatics pneumatics = new Pneumatics();
 	public static final Shooter shooter = new Shooter();
+	public static final Course course = new Course();
 	public static OI oi;
 
 	public static Joystick driveStick = new Joystick(0);
@@ -134,11 +136,10 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Left Encoder: ", chassis.tsrxL.getEncPosition());
 		SmartDashboard.putNumber("Right Encoder: ", chassis.tsrxR.getEncPosition());
-		}
-	
-	public void courseFinding() {
-		SmartDashboard.putNumber("Course Error: ",  )
+		SmartDashboard.putNumber("Course: ", Robot.driveStick1.getRawAxis(4));
 	}
+	
+		
 
 	
 

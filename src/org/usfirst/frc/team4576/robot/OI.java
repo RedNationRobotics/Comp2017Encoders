@@ -32,7 +32,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 // 1 - LeftX
 // 2 - LeftY
 // 3 - Triggers (Each trigger = 0 to 1, axis value = right - left)
-// 4 - RightX
+// 4 - RightX 
 // 5 - RightY
 // 6 - DPad Left/Right
 public class OI {
