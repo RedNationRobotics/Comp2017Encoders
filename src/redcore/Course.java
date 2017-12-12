@@ -11,7 +11,7 @@ public class Course implements Runnable {
 	protected double _ControllerLeftRight; 
 	protected Control _Controller = new Control();
 	protected boolean _Stop = false;
-	public double _Course = -100.0;
+	public double _Course = 0.0;
 	protected double _Max_deg_per_sec = 382.3;
 	protected double _UpdateFrequency_Hz = 100.0;
 	protected double MaxRateOfChange_deg_per_Hz = _Max_deg_per_sec / _UpdateFrequency_Hz;
