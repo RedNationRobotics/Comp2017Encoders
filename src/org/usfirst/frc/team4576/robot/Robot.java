@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import redcore.Course;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,7 +35,6 @@ public class Robot extends IterativeRobot {
 	public static final Climber climber = new Climber();
 	public static final Pneumatics pneumatics = new Pneumatics();
 	public static final Shooter shooter = new Shooter();
-	public static final Course course = new Course();
 	public static OI oi;
 
 	public static Joystick driveStick = new Joystick(0);
