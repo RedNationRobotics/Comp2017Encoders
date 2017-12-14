@@ -18,14 +18,27 @@ double encoder_Rclicks = Robot.chassis.getRightPosition();
 		//99 inches to barb. ticks per inch L:373.3 R:-356.7
 		//Robot.chassis.setPositionLeftRight(36956.7, -35313.3);
 		//moveauto: double targetLclicks, double targetRclicks, ECommand command, double seconds
-		Robot.move.Move(5000, 5000, 0);
 		//Robot.chassis.tsrxL.setPosition(36956.7);
 		//Robot.chassis.tsrxR.setPosition(-35313.3);
 		//Timer.delay(4);
-		Robot.pneumatics.gearUp();
-		Robot.chassis.setLeftRight(0, 0);
+	        // Drive forwards for 50 units
+	//	resetEncoders();
+	        do {
+	            Robot.chassis.setLeftRight(0.5, 0.0);
+	        } while (getAverageEncoderPosition() < 50.0);
+	        Robot.chassis.setLeftRight(0,0);
+	    }		
 
-	}
+private double getAverageEncoderPosition() {
+    return (Robot.chassis.getLeftPosition()+ Robot.chassis.getRightPosition()) / 2;
+}
+
+/*public void resetEncoders(){
+    Robot.chassis.tsrxL.setEncPosition(0);
+    Robot.chassis.tsrxR.setEncPosition(0);
+*/
+
+
 int _MaxEncoderDifference = 300;
 double targetLclicks = Robot.move._targetLclicks;
 double currentLclicks = Robot.chassis.getLeftPosition();
@@ -55,6 +68,7 @@ public double GetPowerRight(double currentRclicks, double targetRclicks)
 	}
 	return 0.0;
 }
+
 	/*public void Move() {
 		do { 
 			_encoderLeft_clicks = - (1234);

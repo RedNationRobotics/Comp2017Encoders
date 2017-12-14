@@ -143,6 +143,9 @@ public class Chassis extends Subsystem {
 		tsrxR.setEncPosition(0);
 		tsrxL.setPosition(0);
 		tsrxR.setPosition(0);
+		tsrxL.configEncoderCodesPerRev(768);
+		tsrxR.configEncoderCodesPerRev(768);
+
 	}
 
 	// This declares that for driving only the assigned axes are used.
