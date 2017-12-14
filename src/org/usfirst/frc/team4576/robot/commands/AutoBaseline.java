@@ -24,7 +24,7 @@ public class AutoBaseline extends Command {
 	protected void execute() {
 		//-,+ for forward, +,- for backwards
 	//	Robot.chassis.setLeftRight(15, 15);
-	
+	//need loop and array
 	
 	
 	if(Robot.chassis.getLeftPosition() > -10 * 768){
@@ -45,7 +45,8 @@ public class AutoBaseline extends Command {
 			}
 			Robot.chassis.setLeftRight(0.3, -0.3);
 		}
-		
+	Robot.chassis.getRightPosition();
+	
 		
 	}
 
@@ -57,8 +58,7 @@ public class AutoBaseline extends Command {
 	@Override
 	protected void end() {
 		Robot.chassis.setLeftRight(0, 0);
-		
-
+	 
 	}
 
 	@Override

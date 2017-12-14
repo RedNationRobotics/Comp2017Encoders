@@ -7,6 +7,7 @@ import org.usfirst.frc.team4576.robot.commands.DriveWithJoysticks;
 import org.usfirst.frc.team4576.robot.subsystems.Agitator;
 import org.usfirst.frc.team4576.robot.subsystems.Chassis;
 import org.usfirst.frc.team4576.robot.subsystems.Climber;
+import org.usfirst.frc.team4576.robot.subsystems.MoveAuto;
 import org.usfirst.frc.team4576.robot.subsystems.Pneumatics;
 import org.usfirst.frc.team4576.robot.subsystems.Shooter;
 
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import redcore.BNO055;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,6 +36,8 @@ public class Robot extends IterativeRobot {
 	public static final Climber climber = new Climber();
 	public static final Pneumatics pneumatics = new Pneumatics();
 	public static final Shooter shooter = new Shooter();
+	public static final MoveAuto move = new MoveAuto();
+	private static BNO055 imu;
 	public static OI oi;
 
 	public static Joystick driveStick = new Joystick(0);
@@ -55,6 +59,7 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Baseline Auto", baselineAuto);
 		chooser.addObject("Middle Gear Auto", timedMiddleGear);
 		SmartDashboard.putData("Auto Choices", chooser);
+		
 		System.out.println("RNR 2017 Robot Code Initializing...");
 		oi = new OI();
 		// chooser = new SendableChooser();
@@ -69,6 +74,9 @@ public class Robot extends IterativeRobot {
 		camera.setFPS(15);
 		camera.setResolution(320, 240);
 		CameraServer.getInstance().startAutomaticCapture(camera);
+		
+		imu = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS,
+		BNO055.vector_type_t.VECTOR_EULER);
 
 	}
 
@@ -133,6 +141,11 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		SmartDashboard.putNumber("Left Encoder: ", chassis.tsrxL.getEncPosition());
 		SmartDashboard.putNumber("Right Encoder: ", chassis.tsrxR.getEncPosition());	
+		SmartDashboard.putNumber("BNO055 Heading :", imu.getHeading());
+	//	SmartDashboard.putNumber("BNO055 Heading :", imu.getTemp());
+
+
+		
 		}
 
 	

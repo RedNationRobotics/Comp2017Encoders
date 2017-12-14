@@ -744,7 +744,7 @@ public class BNO055 {
 	public double[] getVector() {
 		return xyz;
 	}
-	
+
 	/**
 	 * The heading of the sensor (x axis) in continuous format. Eg rotating the
 	 *   sensor clockwise two full rotations will return a value of 720 degrees.
