@@ -52,6 +52,15 @@ public class Robot extends IterativeRobot {
 	SendableChooser<String> chooser = new SendableChooser<>();
 	// SendableChooser chooser;
 
+	Course.RobotInterface _CourseRobotInterface = new Course.RobotInterface() {
+		
+		@Override
+		public double FetchJoystickLeftRight() {
+			// TODO Auto-generated method stub
+			return Robot.driveStick1.getRawAxis(4);
+		}
+	};
+	
 	public void robotInit() {
 		chooser = new SendableChooser<>();
 		chooser.addDefault("Default Auto", defaultAuto);
@@ -137,6 +146,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Left Encoder: ", chassis.tsrxL.getEncPosition());
 		SmartDashboard.putNumber("Right Encoder: ", chassis.tsrxR.getEncPosition());
 		SmartDashboard.putNumber("Course: ", Robot.driveStick1.getRawAxis(4));
+		Robot.course.Demo();
 	}
 	
 		

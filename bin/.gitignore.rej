@@ -1,4 +1,0 @@
-diff a/bin/.gitignore b/bin/.gitignore	(rejected hunks)
-@@ -1 +1,2 @@
- /org/
-+/redcore/
