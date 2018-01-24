@@ -36,7 +36,6 @@ public class Robot extends IterativeRobot {
 	public static final Climber climber = new Climber();
 	public static final Pneumatics pneumatics = new Pneumatics();
 	public static final Shooter shooter = new Shooter();
-	public static final Course course = new Course();
 	public static OI oi;
 
 	public static Joystick driveStick = new Joystick(0);
@@ -60,6 +59,8 @@ public class Robot extends IterativeRobot {
 			return Robot.driveStick1.getRawAxis(4);
 		}
 	};
+	
+	public Course _Course = new Course(_CourseRobotInterface);
 	
 	public void robotInit() {
 		chooser = new SendableChooser<>();
@@ -143,10 +144,12 @@ public class Robot extends IterativeRobot {
 
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Left Encoder: ", chassis.tsrxL.getEncPosition());
-		SmartDashboard.putNumber("Right Encoder: ", chassis.tsrxR.getEncPosition());
+		//SmartDashboard.putNumber("Left Encoder: ", chassis.tsrxL.getEncPosition());
+		//SmartDashboard.putNumber("Right Encoder: ", chassis.tsrxR.getEncPosition());
 		SmartDashboard.putNumber("Course: ", Robot.driveStick1.getRawAxis(4));
-		Robot.course.Demo();
+		SmartDashboard.putNumber("LAmps: ", Robot.pneumatics.Lcurrent);
+		SmartDashboard.putNumber("RAmps: ", Robot.pneumatics.Rcurrent);
+		SmartDashboard.putNumber("Course", _Course._Course);
 	}
 	
 		

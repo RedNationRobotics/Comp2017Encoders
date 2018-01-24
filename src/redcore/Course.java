@@ -15,21 +15,18 @@ public class Course implements Runnable {
 	
 	public interface RobotInterface {
 		double FetchJoystickLeftRight();
-	}
+	};
 	
 	protected RobotInterface _robotInterface;
 	
 	public Course(RobotInterface robotInterface) {
 		_robotInterface = robotInterface;
+		_Thread = new Thread(this);
 	}
 	
 	public void Demo() {
 		double lr = _robotInterface.FetchJoystickLeftRight();
 		System.out.println(lr);
-	}
-	
-	public Course(Callable<Double> GetLeftRightFunction) {
-		_GetLeftRightFunction = GetLeftRightFunction;
 	}
 	
 
@@ -38,7 +35,7 @@ public class Course implements Runnable {
 	}
 	
 	public void CalcCourseThread() {
-		Thread.start();
+		_Thread.start();
 	}
 	
 	public void Stop() {
@@ -69,7 +66,12 @@ public class Course implements Runnable {
 	}
 	
 	public void WaitTiming() {
-		Thread.sleep((long) (1000 / _UpdateFrequency_Hz));
+		try {
+			Thread.sleep((long) (1000 / _UpdateFrequency_Hz));
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	

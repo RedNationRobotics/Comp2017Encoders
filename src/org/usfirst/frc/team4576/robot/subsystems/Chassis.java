@@ -6,6 +6,8 @@ import org.usfirst.frc.team4576.robot.RobotMap;
 import com.ctre.CANTalon;
 import com.ctre.CANTalon.FeedbackDevice;
 import com.ctre.CANTalon.TalonControlMode;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 //import edu.wpi.first.wpilibj.BuiltInAccelerometer;
@@ -13,6 +15,7 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -21,10 +24,10 @@ public class Chassis extends Subsystem {
 	double rpm = 0;
 	private AnalogGyro gyro = new AnalogGyro(1);
 	public Chassis() {
-		tsrxL2.changeControlMode(CANTalon.TalonControlMode.Follower);
+		tsrxL2.changeControlMode(WPI_TalonSRX.TalonControlMode.Follower);
 		tsrxL2.set(tsrxL.getDeviceID());
 		tsrxL.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		tsrxR2.changeControlMode(CANTalon.TalonControlMode.Follower);
+		tsrxR2.changeControlMode(WPI_TalonSRX.TalonControlMode.Follower);
 		tsrxR2.set(tsrxR.getDeviceID());
 		tsrxR.setFeedbackDevice(FeedbackDevice.QuadEncoder);
 	tsrxR.configEncoderCodesPerRev(768);
@@ -37,8 +40,6 @@ public class Chassis extends Subsystem {
 		*/
 		
 		tsrxL.setAllowableClosedLoopErr(0);
-		tsrxL.reverseOutput(true);
-		tsrxL.reverseSensor(true);
 		tsrxR.setAllowableClosedLoopErr(0);
 		
 		
@@ -50,15 +51,15 @@ public class Chassis extends Subsystem {
 
 	boolean manualOverride = false;
 
-	public CANTalon tsrxL = new CANTalon(RobotMap.LEFT_MASTER);
-	public CANTalon tsrxR = new CANTalon(RobotMap.RIGHT_MASTER);
-	public CANTalon tsrxL2 = new CANTalon(RobotMap.LEFT_SLAVE);
-	public CANTalon tsrxR2 = new CANTalon(RobotMap.RIGHT_SLAVE);
+	public WPI_TalonSRX tsrxL = new WPI_TalonSRX(RobotMap.LEFT_MASTER);
+	public WPI_TalonSRX tsrxR = new WPI_TalonSRX(RobotMap.RIGHT_MASTER);
+	public WPI_TalonSRX tsrxL2 = new WPI_TalonSRX(RobotMap.LEFT_SLAVE);
+	public WPI_TalonSRX tsrxR2 = new WPI_TalonSRX(RobotMap.RIGHT_SLAVE);
 	// ******Commented out encoder to troubleshoot******
 	// double quadEncoderPos = tsrxR.getEncPosition();
 
 	// This defines the talons used to drive.
-	RobotDrive drive = new RobotDrive(tsrxL, tsrxR);
+	DifferentialDrive drive = new DifferentialDrive(tsrxL, tsrxR);
 	// These 2 lines declare the axes for turning	
 	public static final int FORWARD_AXIS = 1;
 	public static final int TURN_AXIS = 4;
@@ -73,9 +74,9 @@ public class Chassis extends Subsystem {
 
 	// This defines whether a talon is on the right or left.
 	public void setLeftRight(double left, double right) {
-		tsrxL.set(left);
+		tsrxL.set(ControlMode.PercentOutput, left);
 		// tsrxL2.set(left);
-		tsrxR.set(right);
+		tsrxR.set(ControlMode.PercentOutput, right);
 		// tsrxR2.set(right);
 
 	}
@@ -90,8 +91,8 @@ public class Chassis extends Subsystem {
 	}
 	public void setFPID(double f, double p, double i, double d)
 	{
-		tsrxL.setF(f);
-		tsrxR.setF(f);
+		tsrxL.set(f);
+		tsrxR.set(f);
 		tsrxL.setPID(p, i, d);
 		tsrxR.setPID(p, i, d);
 		
@@ -111,8 +112,8 @@ public class Chassis extends Subsystem {
 		tsrxL.setPosition(0);
 		tsrxR.setPosition(0);
 		
-		tsrxL.changeControlMode(TalonControlMode.Position);
-		tsrxR.changeControlMode(TalonControlMode.Position);
+		tsrxL.changeControlMode(ControlMode.Position);
+		tsrxR.changeControlMode(ConrolMode.Position);
 		/*
 		tsrxL.enableControl();
 		tsrxR.enableControl();
